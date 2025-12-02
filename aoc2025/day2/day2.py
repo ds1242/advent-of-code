@@ -2,8 +2,8 @@
 import math
 
 def main():
-    # filename = "day2.txt"
-    filename = "practice.txt"
+    filename = "day2.txt"
+    # filename = "practice.txt"
     productIdRange = []
 
     total = 0
@@ -32,20 +32,10 @@ def checkValue(productRange, total):
             remainder = i % 10
             digits.append(remainder)
             i //= 10
-        # find the midpoint of the number
-        halfLength = math.ceil(len(digits) / 2)
-        # check first and second halves, add total 
-        if(digits[:int(halfLength)] == digits[int(halfLength):]):
-            # print(digits)
+        
+        # Check if the number has a repeating pattern (invalid IDs)
+        if hasRepeatingPattern(digits):
             total += joinArrayAsInt(digits)
-        else:
-            tempset = set()
-            for digit in digits:
-                tempset.add(digit)
-            if(len(tempset) == 1):
-                total += joinArrayAsInt(digits)
-                    # print("yes")
-            # print(len(tempset))
 
     return total
 
@@ -55,6 +45,25 @@ def joinArrayAsInt(array):
     value = int(joined_string)
 
     return value
+
+def hasRepeatingPattern(digits):
+
+    n = len(digits)
+    # Try all possible pattern lengths (from 1 to n//2)
+    for pattern_length in range(1, n // 2 + 1):
+        # Only check if the pattern length divides evenly into total length
+        if n % pattern_length == 0:
+            pattern = digits[:pattern_length]
+            # Check if repeating this pattern recreates the entire digit array
+            is_repeating = True
+            for i in range(pattern_length, n, pattern_length):
+                if digits[i:i+pattern_length] != pattern:
+                    is_repeating = False
+                    break
+            if is_repeating:
+                return True
+    return False
+
 
 main()
 
