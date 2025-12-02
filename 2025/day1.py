@@ -23,11 +23,9 @@ def main():
         direction, distance = split_instruction(i)
         # print(f"direction: {direction} distance: {distance}")
         if direction == 'L':
-            dial = turn_left(dial, int(distance))
+            dial, password = turn_left(dial, int(distance), password)
         if direction == 'R':
-            dial = turn_right(dial, int(distance))
-        if dial == 0:
-            password += 1
+            dial, password = turn_right(dial, int(distance), password)
     
     print(password)
 
@@ -39,23 +37,29 @@ def split_instruction(instruction):
     return direction, distance
 
 
-def turn_left(dial, distance):
+def turn_left(dial, distance, count):
     for _ in range(distance):
         if dial - 1 == -1:
             dial = 99
         else:
             dial -= 1
+        
+        if dial == 0:
+            count += 1
     
-    return dial
+    return dial, count
 
 
-def turn_right(dial, distance):
+def turn_right(dial, distance, count):
     for _ in range(distance):
         if dial + 1 == 100:
             dial = 0
         else:
             dial += 1
+
+        if dial == 0:
+            count += 1
     
-    return dial
+    return dial, count
 
 main()
