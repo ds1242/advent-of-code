@@ -2,8 +2,8 @@
 import math
 
 def main():
-    filename = "day2.txt"
-    # filename = "practice.txt"
+    # filename = "day2.txt"
+    filename = "practice.txt"
     productIdRange = []
 
     total = 0
@@ -37,11 +37,24 @@ def checkValue(productRange, total):
         # check first and second halves, add total 
         if(digits[:int(halfLength)] == digits[int(halfLength):]):
             # print(digits)
-            string_numbers = [str(n) for n in digits[::-1]]
-            joined_string = "".join(string_numbers)
-            total += int(joined_string)
+            total += joinArrayAsInt(digits)
+        else:
+            tempset = set()
+            for digit in digits:
+                tempset.add(digit)
+            if(len(tempset) == 1):
+                total += joinArrayAsInt(digits)
+                    # print("yes")
+            # print(len(tempset))
 
     return total
+
+def joinArrayAsInt(array):
+    string_numbers = [str(n) for n in array[::-1]]
+    joined_string = "".join(string_numbers)
+    value = int(joined_string)
+
+    return value
 
 main()
 
