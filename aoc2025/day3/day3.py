@@ -2,18 +2,25 @@
 
 def main() -> None:
     # filename = "input.txt"
-    filename = "sample-input.txt"
-    input_list = read_input(filename)
+    filename: str = "input.txt"
+    input_list:list = read_input(filename)
     
-    for row in input_list:
-        find_largest(list(row))
+    output: int = 0
 
+    for row in input_list:
+        output += (find_largest(list(row)))
+
+    print(output)
     
 def find_largest(row: list):
-    largest: int = int(row[0])
-    second_largest: int = int(row[1])
-    for i in range(2, len(row)):
-        print(row[i])
+    largest: int = 0
+
+    for i in range(0, len(row)):
+        for j in range(i, len(row)):
+            if(int(row[i] + row[j]) > largest and j != i):
+                largest = int(row[i] + row[j])
+
+    return largest
 
 def read_input(filename: str) -> list:
     inputList = []
