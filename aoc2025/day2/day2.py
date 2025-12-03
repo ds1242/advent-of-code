@@ -1,5 +1,4 @@
 # from aoc2025 import readInput as r
-import math
 
 def main():
     filename = "day2.txt"
