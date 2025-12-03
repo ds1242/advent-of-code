@@ -1,14 +1,21 @@
 
 
-def main():
+def main() -> None:
     # filename = "input.txt"
     filename = "sample-input.txt"
-    input_list = readInput(filename)
-    print(input_list)
+    input_list = read_input(filename)
+    
+    for row in input_list:
+        find_largest(list(row))
 
     
+def find_largest(row: list):
+    largest: int = int(row[0])
+    second_largest: int = int(row[1])
+    for i in range(2, len(row)):
+        print(row[i])
 
-def readInput(filename):
+def read_input(filename: str) -> list:
     inputList = []
 
     try:
