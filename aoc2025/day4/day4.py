@@ -1,8 +1,8 @@
 
 
 def day4():
-    # filename:str = "input.txt"
-    filename:str = "sample-input.txt"
+    filename:str = "input.txt"
+    # filename:str = "sample-input.txt"
     input_list:list = read_input(filename)
 
 
@@ -15,7 +15,7 @@ def day4():
         matrix.append(list(row))
 
     
-    while able_to_remove == True:
+    while able_to_remove:
         # reset rolls to be removed list
         rolls_to_remove:list = []
 
@@ -48,19 +48,18 @@ def day4():
                     if i < len(matrix[i]) - 1 and j < len(matrix[i]) - 1 and matrix[i + 1][j + 1] == '@':
                         curr_count += 1
 
-                    if curr_count < 4 and curr_count > 0:
+                    if curr_count < 4:
                         rolls_removed += 1
                         rolls_to_remove.append((i, j))
+
+        print(rolls_to_remove)
+        matrix = remove_rolls(rolls_to_remove, matrix)
         if len(rolls_to_remove) == 0:
             able_to_remove = False
 
-        matrix = remove_rolls(rolls_to_remove, matrix)
 
     print(rolls_removed)
     
-    
-    
-    # print(matrix)
     
 
 def remove_rolls(rolls_to_remove:list, matrix: list) -> list:
