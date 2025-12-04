@@ -1,45 +1,47 @@
 
 
 def main() -> None:
-    # filename:str = "input.txt"
-    filename: str = "sample-input2.txt"
+    filename:str = "input.txt"
+    # filename: str = "sample-input.txt"
     input_list:list = read_input(filename)
     
-    output: int = 0
+    total: int = 0
 
     for row in input_list:
-        output += (find_largest(list(row)))
+        result = find_largest(row)
+        print(f"{row} -> {result}")
+        total += result
 
-    # print(output)
+    print(f"\nTotal: {total}")
     
-def find_largest(row: list):
-    largest: int = 0
-    smallest_three_count:int = 3
-    count_dict:dict = {}
-    output:list = []
-    # dump count of characters into a dictionary
-    for i in range(0, len(row)):
-        count_dict[row[i]] = count_dict.get(row[i], 0) + 1
-
-    count_dict = dict(sorted(count_dict.items()))
-
-    for key, _ in count_dict.items():
-        if smallest_three_count == 0:
-            break
-
-        while smallest_three_count > 0:
-            if key in count_dict and count_dict[key] > 0:
-                count_dict[key] -= 1
-                smallest_three_count -= 1
-
-
-    for i in range(0, len(row)):
-        if row[i] in count_dict and count_dict[row[i]] > 0:
-            output.append(row[i])
-            count_dict[row[i]] -= 1
-
-    print(output)
-    return largest
+def find_largest(digits: str) -> int:
+    """
+    Keep exactly 12 digits to create the largest possible number.
+    Uses a monotonic stack approach.
+    """
+    digits = list(digits)
+    keep_count = 12
+    removals_left = len(digits) - keep_count
+    stack = []
+    
+    for digit in digits:
+        # While we can still remove digits AND
+        # the top of stack is smaller than current digit,
+        # remove from stack (this makes room for larger digit)
+        while removals_left > 0 and stack and stack[-1] < digit:
+            stack.pop()
+            removals_left -= 1
+        
+        stack.append(digit)
+    
+    # If we haven't removed enough yet, remove from the end
+    # (these are the smallest/least significant digits)
+    while removals_left > 0:
+        stack.pop()
+        removals_left -= 1
+    
+    # Convert back to integer
+    return int(''.join(stack))
 
 def read_input(filename: str) -> list:
     inputList = []
