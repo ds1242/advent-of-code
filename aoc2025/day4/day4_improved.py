@@ -6,8 +6,6 @@ def day4_optimized():
     
     # Store occupied positions as a set of (row, col) tuples
     rolls = set()
-    rows = len(input_list)
-    cols = len(input_list[0]) if input_list else 0
     
     for i, row in enumerate(input_list):
         for j, char in enumerate(row):
