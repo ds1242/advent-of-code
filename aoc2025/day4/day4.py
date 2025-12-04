@@ -52,7 +52,6 @@ def day4():
                         rolls_removed += 1
                         rolls_to_remove.append((i, j))
 
-        print(rolls_to_remove)
         matrix = remove_rolls(rolls_to_remove, matrix)
         if len(rolls_to_remove) == 0:
             able_to_remove = False
