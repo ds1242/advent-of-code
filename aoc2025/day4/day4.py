@@ -1,50 +1,73 @@
 
 
 def day4():
-    filename:str = "input.txt"
-    # filename:str = "sample-input.txt"
+    # filename:str = "input.txt"
+    filename:str = "sample-input.txt"
     input_list:list = read_input(filename)
 
 
-    available_rolls:int = 0
-    for i in range(0, len(input_list)):
-        for j in range(0, len(input_list[i])):
-            # print(input_list[i][j])
-            # set count to 0
-            curr_count:int = 0
+    rolls_removed:int = 0
+    able_to_remove:bool = True
 
-            # up and left
-            if input_list[i][j] == '@':
-                if i > 0 and j > 0 and input_list[i - 1][j - 1] == '@':
-                    curr_count += 1
-                # above
-                if i > 0 and input_list[i - 1][j] == '@':
-                    curr_count += 1
-                # up and right
-                if i > 0 and j < len(input_list[i]) - 1 and input_list[i - 1][j + 1] == '@':
-                    curr_count += 1
-                # left
-                if j > 0 and input_list[i][j - 1] == '@': 
-                    curr_count += 1
-                # right
-                if j < len(input_list[i]) - 1 and input_list[i][j + 1] == '@':
-                    curr_count += 1
-                # below and left
-                if i < len(input_list[i]) - 1 and j > 0 and input_list[i + 1][j - 1] == '@':
-                    curr_count += 1
-                # below
-                if i < len(input_list[i]) - 1 and input_list[i + 1][j] == '@':
-                    curr_count += 1
-                # below and right
-                if i < len(input_list[i]) - 1 and j < len(input_list[i]) - 1 and input_list[i + 1][j + 1] == '@':
-                    curr_count += 1
+    matrix:list = []
 
-                if curr_count < 4:
-                    available_rolls += 1
+    for row in input_list:
+        matrix.append(list(row))
 
-            # print(f"found at i:{i} j:{j}")
+    
+    while able_to_remove == True:
+        # reset rolls to be removed list
+        rolls_to_remove:list = []
 
-    print(available_rolls)
+        for i in range(0, len(matrix)):
+            for j in range(0, len(matrix[i])):
+                curr_count:int = 0
+                # up and left
+                if matrix[i][j] == '@':
+                    if i > 0 and j > 0 and matrix[i - 1][j - 1] == '@':
+                        curr_count += 1
+                    # above
+                    if i > 0 and matrix[i - 1][j] == '@':
+                        curr_count += 1
+                    # up and right
+                    if i > 0 and j < len(matrix[i]) - 1 and matrix[i - 1][j + 1] == '@':
+                        curr_count += 1
+                    # left
+                    if j > 0 and matrix[i][j - 1] == '@': 
+                        curr_count += 1
+                    # right
+                    if j < len(matrix[i]) - 1 and matrix[i][j + 1] == '@':
+                        curr_count += 1
+                    # below and left
+                    if i < len(matrix[i]) - 1 and j > 0 and matrix[i + 1][j - 1] == '@':
+                        curr_count += 1
+                    # below
+                    if i < len(matrix[i]) - 1 and matrix[i + 1][j] == '@':
+                        curr_count += 1
+                    # below and right
+                    if i < len(matrix[i]) - 1 and j < len(matrix[i]) - 1 and matrix[i + 1][j + 1] == '@':
+                        curr_count += 1
+
+                    if curr_count < 4 and curr_count > 0:
+                        rolls_removed += 1
+                        rolls_to_remove.append((i, j))
+        if len(rolls_to_remove) == 0:
+            able_to_remove = False
+
+        matrix = remove_rolls(rolls_to_remove, matrix)
+
+    print(rolls_removed)
+    
+    
+    
+    # print(matrix)
+    
+
+def remove_rolls(rolls_to_remove:list, matrix: list) -> list:
+    for roll in rolls_to_remove:
+        matrix[roll[0]][roll[1]] = '.'
+    
+    return matrix
 
 def read_input(filename: str) -> list:
     inputList = []
