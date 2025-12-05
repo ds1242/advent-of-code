@@ -21,3 +21,8 @@ def read_input(filename: str) -> str:
 
 
 day5()
+
+# read input
+# split into ranges and values
+# check if value falls into any of the ranges
+# return count of values
