@@ -14,12 +14,6 @@ def day5() -> None:
         else:
             value_list.append(row)
 
-    # for input_value in input_range:
-    #     split_value(input_value)
-    # count: int = 0
-
-    # print(input_range)
-    # print(value_list)
     sorted_list = sorted(input_range, key=lambda x: x[0])
     compressed_list: list = compress_input(sorted_list)
     
@@ -30,6 +24,7 @@ def day5() -> None:
     #             count += 1
     #             break
 
+    # count total values in list
     total = sum(end - start + 1 for start, end in compressed_list)
     print(total)
 
