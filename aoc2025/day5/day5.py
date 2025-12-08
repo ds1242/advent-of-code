@@ -9,24 +9,51 @@ def day5() -> None:
     value_list: list = []
     for row in input_list:
         if '-' in row:
-            input_range.append(row.split('-'))
+            split_row: list = row.split('-')
+            input_range.append([int(split_row[0]), int(split_row[1])])
         else:
             value_list.append(row)
 
     # for input_value in input_range:
     #     split_value(input_value)
-    count: int = 0
+    # count: int = 0
 
     # print(input_range)
     # print(value_list)
-    for value in value_list:
-        for range_value in input_range:
-            if int(value) >= int(range_value[0]) and int(value) <= int(range_value[1]):
-                count += 1
-                break
+    sorted_list = sorted(input_range, key=lambda x: x[0])
+    compressed_list: list = compress_input(sorted_list)
+    
+    # count the values in the range
+    # for value in value_list:
+    #     for range_value in input_range:
+    #         if int(value) >= int(range_value[0]) and int(value) <= int(range_value[1]):
+    #             count += 1
+    #             break
 
-    print(count)
+    total = sum(end - start + 1 for start, end in compressed_list)
+    print(total)
 
+
+    # print(count)
+
+def compress_input(ranges: list) -> list:
+    merged = []
+    current_start, current_end = ranges[0]
+    
+    for start, end in ranges[1:]:
+       # Check if this range overlaps or is adjacent to current
+        if start <= current_end + 1:  # +1 handles adjacent ranges like [3-5] and [6-8]
+            # Merge: extend the current range
+            current_end = max(current_end, end)
+        else:
+            # No overlap: save current range and start a new one
+            merged.append((current_start, current_end))
+            current_start, current_end = start, end
+    
+    # Don't forget the last range!
+    merged.append((current_start, current_end))
+    
+    return merged
 
 def read_input(filename: str) -> str:
 
@@ -41,9 +68,6 @@ def read_input(filename: str) -> str:
     return productIDs
 
 
-def split_value(input: str) -> tuple[int, int]:
-    # values:list = 
-    print(input.split('-'))
 
 day5()
 
