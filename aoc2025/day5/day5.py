@@ -1,7 +1,7 @@
 
 def day5() -> None:
-    # filename:str = "input.txt"
-    filename:str = "sample-input.txt"
+    filename:str = "input.txt"
+    # filename:str = "sample-input.txt"
     input_list:str = read_input(filename)
 
     input_list = input_list.split()
@@ -9,12 +9,23 @@ def day5() -> None:
     value_list: list = []
     for row in input_list:
         if '-' in row:
-            input_range.append(row)
+            input_range.append(row.split('-'))
         else:
             value_list.append(row)
 
-    print(input_range)
-    print(value_list)
+    # for input_value in input_range:
+    #     split_value(input_value)
+    count: int = 0
+
+    # print(input_range)
+    # print(value_list)
+    for value in value_list:
+        for range_value in input_range:
+            if int(value) >= int(range_value[0]) and int(value) <= int(range_value[1]):
+                count += 1
+                break
+
+    print(count)
 
 
 def read_input(filename: str) -> str:
@@ -31,7 +42,8 @@ def read_input(filename: str) -> str:
 
 
 def split_value(input: str) -> tuple[int, int]:
-    
+    # values:list = 
+    print(input.split('-'))
 
 day5()
 
