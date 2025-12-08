@@ -1,28 +1,41 @@
 
 def day6() -> None:
-    # filename:str = "input.txt"
-    filename:str = "sample-input.txt"
+    filename:str = "input.txt"
+    # filename:str = "sample-input.txt"
 
     input_list:str = read_input(filename)
-
+    flat_last:list = []
 
     total: int = 0
-    for i in range(0, len(input_list)):
+
+    row_total:int = len(input_list)
+    col_total: int = 0
+
+    for i in range(0, 1):
+        for j in range(0, len(input_list[0])):
+            col_total += 1
+
+    # print(col_total)
+    print(row_total)
+    print(col_total)
+
+    for i in range(0, col_total):
         col_total: int
         if input_list[-1][i] == '+':
             col_total = 0
         elif input_list[-1][i] == '*':
             col_total = 1
-
-        for j in range(0, len(input_list[i]) - 1):
-            # print(input_list[-1][i])
+        for j in range(0, row_total - 1):
             if input_list[-1][i] == '+':
+                # print(input_list[j][i])
                 col_total += int(input_list[j][i])
                 # print('add')
             elif input_list[-1][i] == '*':
                 col_total *= int(input_list[j][i])
                 # print('multi')
             # print(col_total)
+        # flat_last.append(curr_list)
+        # print(col_total)
         total += col_total
 
     print(total)
