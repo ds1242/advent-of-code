@@ -7,10 +7,25 @@ def day6() -> None:
 
 
     total: int = 0
-    flat_list:list = []
-    for row in input_list:
-        print(row)
-      
+    for i in range(0, len(input_list)):
+        col_total: int
+        if input_list[-1][i] == '+':
+            col_total = 0
+        elif input_list[-1][i] == '*':
+            col_total = 1
+
+        for j in range(0, len(input_list[i]) - 1):
+            # print(input_list[-1][i])
+            if input_list[-1][i] == '+':
+                col_total += int(input_list[j][i])
+                # print('add')
+            elif input_list[-1][i] == '*':
+                col_total *= int(input_list[j][i])
+                # print('multi')
+            # print(col_total)
+        total += col_total
+
+    print(total)
     
 
 
