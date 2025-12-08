@@ -4,41 +4,35 @@ def day6() -> None:
     # filename:str = "sample-input.txt"
 
     input_list:str = read_input(filename)
-    flat_last:list = []
 
+    data_rows:list = input_list[:-1]
+    operations:list = input_list[-1]
+
+    num_cols:int = len(operations)
     total: int = 0
 
-    row_total:int = len(input_list)
-    col_total: int = 0
 
-    for i in range(0, 1):
-        for j in range(0, len(input_list[0])):
-            col_total += 1
+    for col_idx in range(num_cols):
+        operation:str = operations[col_idx]
+        col_total:int 
 
-    # print(col_total)
-    print(row_total)
-    print(col_total)
-
-    for i in range(0, col_total):
-        col_total: int
-        if input_list[-1][i] == '+':
+        if operation =='+':
             col_total = 0
-        elif input_list[-1][i] == '*':
+        elif operation == '*':
             col_total = 1
-        for j in range(0, row_total - 1):
-            if input_list[-1][i] == '+':
-                # print(input_list[j][i])
-                col_total += int(input_list[j][i])
-                # print('add')
-            elif input_list[-1][i] == '*':
-                col_total *= int(input_list[j][i])
-                # print('multi')
-            # print(col_total)
-        # flat_last.append(curr_list)
-        # print(col_total)
+        else:
+            continue
+
+        for row in data_rows:
+            value = int(row[col_idx])
+            if operation == '+':
+                col_total += value
+            elif operation == "*":
+                col_total *= value
+
         total += col_total
 
-    print(total)
+    print(f"Total: {total}")
     
 
 
