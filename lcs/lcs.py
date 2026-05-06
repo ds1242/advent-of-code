@@ -19,14 +19,12 @@ def LCS_Length(x:list, y: list):
             else:
                 c[i][j] = c[i][j - 1]
                 b[i][j] = "W"
-    print(b)
     Print_LCS(b, x, m, n)
 
    
 def Print_LCS(b, X, i, j):
     if i == 0 or j == 0:
         return
-
     if b[i][j] == "NW":
         Print_LCS(b, X, i - 1, j - 1)
         print(X[i - 1])
